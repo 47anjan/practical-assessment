@@ -119,6 +119,7 @@ export const AuthProvider = ({ children }) => {
       });
 
       await response.json();
+      setUser(null);
 
       router.push("/login");
     } catch (err) {

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useAuth } from "@/providers/AuthProvider";
 
 const Auth = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, logout } = useAuth();
 
   return (
     <>
@@ -11,7 +11,7 @@ const Auth = () => {
         <div className="size-11 bg-gradient-to-r from-orange-50 to-rose-50 border border-slate-200/80 rounded-full animate-pulse"></div>
       ) : (
         <>
-          {!user && !loading ? (
+          {!user ? (
             <>
               <Link
                 href="/signup"
@@ -33,7 +33,10 @@ const Auth = () => {
           ) : (
             <div className="capitalize text-yellow-900 font-semibold text-sm flex items-center gap-2 ">
               <p>{user.name}</p>
-              <button className="w-full block py-3 px-6 text-center rounded-full transition  hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
+              <button
+                onClick={logout}
+                className="w-full block py-3 px-6 text-center rounded-full transition  hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max"
+              >
                 <span className="block ">Logout</span>
               </button>
             </div>
