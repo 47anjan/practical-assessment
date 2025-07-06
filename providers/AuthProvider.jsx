@@ -2,9 +2,9 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 
-import { BASE_URL } from "@/lib/constants";
-import getCurrentUser from "@/lib/user";
+import getCurrentUser from "@/utils/user";
 import { useRouter } from "next/navigation";
+import { BASE_URL } from "@/utils/constants";
 
 const AuthContext = createContext(undefined);
 
@@ -20,7 +20,7 @@ export const useAuth = () => {
 // Auth Provider Component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const router = useRouter();
 

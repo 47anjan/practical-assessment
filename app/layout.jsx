@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 // import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import TanstackProvider from "@/providers/AuthProvider";
+import TanstackProvider from "@/providers/TanstackProvider";
 import AuthProvider from "@/providers/AuthProvider";
 
 const geistSans = localFont({

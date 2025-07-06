@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useAuth } from "@/providers/AuthProvider";
 
 // Zod schema for form validation
 const signupSchema = z
@@ -33,7 +34,11 @@ const signupSchema = z
   });
 
 const SignupPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { signup, loading } = useAuth();
+  const [status, setStatus] = useState({
+    error: "",
+    success: false,
+  });
 
   const {
     register,
@@ -45,13 +50,26 @@ const SignupPage = () => {
   });
 
   const onSubmit = async (data) => {
-    setIsLoading(true);
+    try {
+      "Form data:", data;
+      setStatus({ error: "", success: false });
 
-    // Simulate signup process
-    setTimeout(() => {
-      setIsLoading(false);
-      alert(`Account created successfully! Welcome, ${data.name}!`);
-    }, 2000);
+      await signup(data);
+
+      setStatus({ error: "", success: true });
+      // Optionally redirect or show success message
+    } catch (error) {
+      console.log("Submission error:", error);
+
+      setStatus({
+        error:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred",
+        success: false,
+      });
+      console.error("Submission error:", error);
+    }
   };
 
   return (
@@ -194,14 +212,28 @@ const SignupPage = () => {
                   )}
                 </div>
 
+                {status.error && (
+                  <div className="p-3 mt-2 bg-red-50 border flex items-center justify-center border-red-200 rounded-md">
+                    <p className="text-red-600 text-sm">{status.error}</p>
+                  </div>
+                )}
+
+                {status.success && (
+                  <div className="p-3 mt-2 bg-green-50 flex items-center justify-center border border-green-200 rounded-md">
+                    <p className="text-green-600 text-sm">
+                      Login successful! Redirecting...
+                    </p>
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <button
                   type="button"
                   onClick={handleSubmit(onSubmit)}
-                  disabled={isLoading}
+                  disabled={loading}
                   className="w-full bg-yellow-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-yellow-700 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoading ? (
+                  {loading ? (
                     <div className="flex items-center justify-center">
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                       Creating Account...
