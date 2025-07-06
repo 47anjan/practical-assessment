@@ -6,6 +6,8 @@ import HttpKit from "@/common/helpers/HttpKit";
 import RecipeCard from "@/components/Recipes/RecipeCard";
 import Modal from "@/components/Modal";
 import SingleRecipe from "@/components/Recipes/SingleRecipe";
+import Loading from "@/components/Common/Loading";
+import Error from "@/components/Common/Error";
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useState({
@@ -62,27 +64,15 @@ const SearchPage = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Searching for recipes...</p>
-        </div>
-      </div>
+      <Loading>
+        <p className="text-gray-600">Searching for recipes...</p>
+      </Loading>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">
-            Error Loading Recipes
-          </h2>
-          <p className="text-gray-600">
-            Something went wrong while searching for recipes. Please try again.
-          </p>
-        </div>
-      </div>
+      <Error message="Something went wrong while searching for recipes. Please try again." />
     );
   }
 

@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import HttpKit from "../../common/helpers/HttpKit";
-import RecipeCard from "../../components/Recipes/RecipeCard";
+import HttpKit from "@/common/helpers/HttpKit";
+import RecipeCard from "@/components/Recipes/RecipeCard";
+import Loading from "@/components/Common/Loading";
+import Error from "@/components/Common/Error";
 
 const AllRecipes = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -34,30 +36,21 @@ const AllRecipes = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading categories...</p>
-        </div>
-      </div>
+      <Loading>
+        <p className=" text-gray-600">Loading categories...</p>
+      </Loading>
     );
   }
 
   // Handle errors
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600">
-            Error loading categories: {error.message}
-          </p>
-        </div>
-      </div>
+      <Error message="Error loading categories. Please try again later." />
     );
   }
 
   return (
-    <div className=" bg-gradient-to-br from-orange-50 to-red-50">
+    <div className="bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Categories Sidebar */}
@@ -73,7 +66,7 @@ const AllRecipes = () => {
                     onClick={() => handleCategoryClick(category)}
                     className={`flex items-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
                       selectedCategory?.idCategory === category.idCategory
-                        ? "bg-orange-500 text-white shadow-md"
+                        ? "bg-orange-400 text-white shadow-md"
                         : "hover:bg-orange-50 hover:shadow-sm"
                     }`}
                   >
@@ -160,27 +153,11 @@ const AllRecipes = () => {
                     </button>
                   </div>
                 ) : recipesLoading ? (
-                  <div className="text-center py-12">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
+                  <Loading>
                     <p className="mt-4 text-gray-600">Loading recipes...</p>
-                  </div>
+                  </Loading>
                 ) : recipes.length === 0 ? (
                   <div className="text-center py-12">
-                    <div className="text-gray-400 mb-4">
-                      <svg
-                        className="mx-auto h-16 w-16"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        />
-                      </svg>
-                    </div>
                     <p className="text-gray-600 text-lg">
                       No recipes found in this category
                     </p>
