@@ -1,15 +1,42 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+// Zod schema for login form validation
+const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Please enter a valid email address"),
+  password: z
+    .string()
+    .min(1, "Password is required")
+    .min(6, "Password must be at least 6 characters"),
+});
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+    mode: "onChange",
+  });
+
+  const onSubmit = async (data) => {
     setIsLoading(true);
+
+    // Simulate login process
+    setTimeout(() => {
+      setIsLoading(false);
+      alert(`Welcome back! Logging in with email: ${data.email}`);
+    }, 2000);
   };
 
   return (
@@ -41,12 +68,17 @@ const LoginPage = () => {
                   <input
                     type="email"
                     id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 outline-none"
+                    {...register("email")}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 outline-none ${
+                      errors.email ? "border-red-500" : "border-gray-300"
+                    }`}
                     placeholder="Enter your email"
-                    required
                   />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Password Field */}
@@ -60,18 +92,23 @@ const LoginPage = () => {
                   <input
                     type="password"
                     id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 outline-none"
+                    {...register("password")}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 outline-none ${
+                      errors.password ? "border-red-500" : "border-gray-300"
+                    }`}
                     placeholder="Enter your password"
-                    required
                   />
+                  {errors.password && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.password.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Submit Button */}
                 <button
                   type="button"
-                  onClick={handleSubmit}
+                  onClick={handleSubmit(onSubmit)}
                   disabled={isLoading}
                   className="w-full bg-yellow-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-yellow-700 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -92,7 +129,11 @@ const LoginPage = () => {
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-gray-300"></div>
                   </div>
-                  <div className="relative flex justify-center text-sm"></div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-white text-gray-500">
+                      Or sign in with
+                    </span>
+                  </div>
                 </div>
               </div>
 
