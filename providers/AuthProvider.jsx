@@ -29,7 +29,11 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       const getUser = async () => {
         const result = await getCurrentUser();
-        setUser(result);
+        if (!result._id) {
+          setUser(null);
+        } else {
+          setUser(result);
+        }
         setLoading(false);
       };
 
