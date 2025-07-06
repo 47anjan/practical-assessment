@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
       >
         <TanstackProvider>
           <Navbar />
-          {children}
+          <div className="pt-[76px]">{children}</div>
         </TanstackProvider>
       </body>
     </html>
