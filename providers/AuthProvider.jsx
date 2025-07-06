@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       setUser(result);
-      router.push("/dashboard/profile");
+      router.push("/");
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);

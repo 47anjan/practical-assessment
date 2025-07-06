@@ -51,7 +51,6 @@ const SignupPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      "Form data:", data;
       setStatus({ error: "", success: false });
 
       await signup(data);
