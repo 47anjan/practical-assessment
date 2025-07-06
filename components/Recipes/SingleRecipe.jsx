@@ -3,13 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
 
-const SingleRecipe = ({ id, setIsOpen }) => {
+const SingleRecipe = ({ recipeId, setIsOpen }) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["recipe-details"],
-    queryFn: () => HttpKit.getRecipeDetails(id),
+    queryKey: ["recipe-details", recipeId],
+    queryFn: () => HttpKit.getRecipeDetails(recipeId),
   });
 
-  if (!isLoading) return "Loading...";
+  if (isLoading) return <div>Loading recipe details...</div>;
+  if (error) return <div>Error loading recipe details: {error.message}</div>;
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex justify-end">

@@ -44,7 +44,10 @@ const HttpKit = {
           params: { i: id },
         })
         .then((res) => res);
-      return response.data.meals ? response.data.meals[0] : null;
+
+      const { data } = await response;
+      const result = data.meals ? data.meals[0] : null;
+      return result;
     } catch (error) {
       console.error("Error fetching recipe details:", error);
       throw error;
