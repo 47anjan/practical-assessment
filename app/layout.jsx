@@ -1,8 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "../components/Navbar";
 // import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import TanstackProvider from "@/providers/TanstackProvider";
+import TanstackProvider from "../providers/TanstackProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

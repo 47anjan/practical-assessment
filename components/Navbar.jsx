@@ -59,6 +59,7 @@ const Navbar = () => {
                     <span>All recipes</span>
                   </Link>
                 </li>
+
                 <li>
                   <Link
                     href="/cart"
