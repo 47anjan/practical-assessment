@@ -61,7 +61,7 @@ const AllRecipes = () => {
 
   return (
     <>
-      <div className="bg-gray-50">
+      <div className="bg-gray-50 pt-10">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Categories Sidebar */}
