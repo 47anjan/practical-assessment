@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Auth from "./Auth";
 
 const Navbar = () => {
   return (
@@ -71,23 +72,8 @@ const Navbar = () => {
               </ul>
             </div>
 
-            <div className="w-full min-w-max space-y-2 border-yellow-200 lg:space-y-0 sm:w-max lg:border-l flex items-center pl-2">
-              <Link
-                href="/signup"
-                className="w-full py-3 block px-6 text-center rounded-full transition active:bg-yellow-400   focus:bg-yellow-400 sm:w-max"
-              >
-                <span className="block text-yellow-800 font-semibold text-sm">
-                  Sign up
-                </span>
-              </Link>
-              <Link
-                href="/login"
-                className="w-full block py-3 px-6 text-center rounded-full transition  hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max"
-              >
-                <span className="block text-yellow-900 font-semibold text-sm">
-                  Login
-                </span>
-              </Link>
+            <div className="w-full min-w-max space-y-2 border-yellow-200 lg:space-y-0 sm:w-max lg:border-l flex items-center pl-5">
+              <Auth />
             </div>
           </div>
         </div>
