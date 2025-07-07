@@ -1,5 +1,6 @@
 "use client";
 
+import { LOCAL_STORAGE_CART } from "@/utils/constants";
 import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext(undefined);
@@ -21,7 +22,7 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     try {
       setLoading(true);
-      const localCart = localStorage.getItem("recipeCart");
+      const localCart = localStorage.getItem(LOCAL_STORAGE_CART);
       if (localCart) {
         setCart(JSON.parse(localCart));
       }
@@ -40,7 +41,7 @@ export const CartProvider = ({ children }) => {
     }
 
     const updatedCart = [...cart, recipe];
-    localStorage.setItem("recipeCart", JSON.stringify(updatedCart));
+    localStorage.setItem(LOCAL_STORAGE_CART, JSON.stringify(updatedCart));
     setCart(updatedCart);
     return { success: true, message: "Recipe added to cart" };
   };
