@@ -42,7 +42,7 @@ const WishList = () => {
 
         {wishList.length === 0 ? (
           <div className="bg-white rounded-lg shadow-md p-12 text-center">
-            <div className="text-gray-400 text-6xl mb-4">🛒</div>
+            <div className="text-gray-400 text-6xl mb-4">❤️</div>
             <h2 className="text-2xl font-semibold text-gray-600 mb-2">
               Your wishList is empty
             </h2>
