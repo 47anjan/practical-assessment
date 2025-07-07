@@ -63,6 +63,14 @@ const Navbar = () => {
 
                 <li>
                   <Link
+                    href="/wishlist"
+                    className="block md:px-4 transition hover:text-yellow-700"
+                  >
+                    <span>Wishlist</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/cart"
                     className="block md:px-4 transition hover:text-yellow-700"
                   >
