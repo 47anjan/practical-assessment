@@ -1,5 +1,7 @@
 "use client";
 
+import Error from "@/components/Common/Error";
+import Loading from "@/components/Common/Loading";
 import { useCart } from "@/providers/CartProvider";
 
 const Cart = () => {
@@ -7,18 +9,14 @@ const Cart = () => {
 
   if (loading) {
     return (
-      <div className="bg-gray-50 min-h-screen flex items-center justify-center">
+      <Loading>
         <div className="text-xl">Loading cart...</div>
-      </div>
+      </Loading>
     );
   }
 
   if (error) {
-    return (
-      <div className="bg-gray-50 min-h-screen flex items-center justify-center">
-        <div className="text-xl text-red-500">Error: {error}</div>
-      </div>
-    );
+    return <Error message={`Error: ${error}`} />;
   }
 
   const handleRemoveFromCart = (idMeal) => {
