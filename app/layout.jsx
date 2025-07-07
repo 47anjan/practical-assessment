@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import TanstackProvider from "@/providers/TanstackProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import CartProvider from "@/providers/CartProvider";
+import WishListProvider from "@/providers/WishListProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,10 +32,12 @@ export default function RootLayout({ children }) {
       >
         <AuthProvider>
           <CartProvider>
-            <TanstackProvider>
-              <Navbar />
-              <div className="">{children}</div>
-            </TanstackProvider>
+            <WishListProvider>
+              <TanstackProvider>
+                <Navbar />
+                <div className="">{children}</div>
+              </TanstackProvider>
+            </WishListProvider>
           </CartProvider>
         </AuthProvider>
       </body>

@@ -41,14 +41,16 @@ export const CartProvider = ({ children }) => {
     }
 
     const updatedCart = [...cart, recipe];
-    localStorage.setItem(LOCAL_STORAGE_CART, JSON.stringify(updatedCart));
     setCart(updatedCart);
+    localStorage.setItem(LOCAL_STORAGE_CART, JSON.stringify(updatedCart));
+
     return { success: true, message: "Recipe added to cart" };
   };
 
   const removeFromCart = (idMeal) => {
     const updatedCart = cart.filter((item) => item.idMeal !== idMeal);
     setCart(updatedCart);
+    localStorage.setItem(LOCAL_STORAGE_CART, JSON.stringify(updatedCart));
     return { success: true, message: "Recipe removed from cart" };
   };
 

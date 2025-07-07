@@ -1,10 +1,11 @@
 import Image from "next/image";
 import React from "react";
 import ButtonAddToCart from "@/components/Common/ButtonAddToCart";
+import ButtonWishList from "@/components/Common/ButtonWishList";
 
 const RecipeCard = ({ recipe, handleDetailsOpen }) => {
   return (
-    <article className="group space-y-6 border border-gray-100  rounded-3xl bg-white  px-4 py-4 text-center shadow hover:shadow-xl transition duration-200 shadow-gray-600/10">
+    <article className="group relative space-y-6 border border-gray-100  rounded-3xl bg-white  px-4 py-4 text-center shadow hover:shadow-xl transition duration-200 shadow-gray-600/10">
       <div
         className="hover:cursor-pointer "
         onClick={() => handleDetailsOpen(recipe?.idMeal)}
@@ -29,6 +30,9 @@ const RecipeCard = ({ recipe, handleDetailsOpen }) => {
 
       <div className="relative mx-auto flex items-center justify-center invisible  group-hover:visible">
         <ButtonAddToCart recipe={recipe} />
+      </div>
+      <div className="absolute top-0 right-5 z-10 ">
+        <ButtonWishList recipe={recipe} />
       </div>
     </article>
   );
