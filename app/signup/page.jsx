@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAuth } from "@/providers/AuthProvider";
+import { useRouter } from "next/navigation";
 
 // Zod schema for form validation
 const signupSchema = z
@@ -34,7 +35,9 @@ const signupSchema = z
   });
 
 const SignupPage = () => {
-  const { signup, loading } = useAuth();
+  const { signup, loading, user } = useAuth();
+  const router = useRouter();
+
   const [status, setStatus] = useState({
     error: "",
     success: false,
@@ -48,6 +51,10 @@ const SignupPage = () => {
     resolver: zodResolver(signupSchema),
     mode: "onChange",
   });
+
+  if (user) {
+    router.push("/");
+  }
 
   const onSubmit = async (data) => {
     try {
