@@ -1,6 +1,6 @@
+"use client";
 import { Heart } from "lucide-react";
 import { useWishList } from "@/providers/WishListProvider";
-import { useState } from "react";
 
 const ButtonWishList = ({ recipe }) => {
   const { addToWishList, removeFromWishList, isInWishList } = useWishList();
@@ -10,7 +10,6 @@ const ButtonWishList = ({ recipe }) => {
       return;
     }
 
-    let result;
     if (isInWishList(recipe.idMeal)) {
       removeFromWishList(recipe.idMeal);
     } else {
