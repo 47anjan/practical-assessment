@@ -8,6 +8,7 @@ import Modal from "@/components/Modal";
 import SingleRecipe from "@/components/Recipes/SingleRecipe";
 import Loading from "@/components/Common/Loading";
 import Error from "@/components/Common/Error";
+import { useSearchParams } from "next/navigation";
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useState({
@@ -16,8 +17,8 @@ const SearchPage = () => {
   });
   const [openDetails, setOpenDetails] = useState(false);
   const [recipeId, setRecipeId] = useState("");
+  const urlParams = useSearchParams();
 
-  const urlParams = new URLSearchParams(window.location.search);
   const query = urlParams.get("query") || "";
   const type = urlParams.get("type") || "name";
 
@@ -78,7 +79,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen mt-10 bg-gray-50 py-8">
         <div className="max-w-6xl mx-auto px-4">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">

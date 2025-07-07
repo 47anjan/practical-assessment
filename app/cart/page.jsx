@@ -49,10 +49,7 @@ const Cart = () => {
             <p className="text-gray-500 mb-6">
               Add some delicious recipes to get started!
             </p>
-            <button
-              onClick={() => window.history.back()}
-              className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-lg transition-colors"
-            >
+            <button className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-lg transition-colors">
               Continue Shopping
             </button>
           </div>
