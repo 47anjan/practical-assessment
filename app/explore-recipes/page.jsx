@@ -7,6 +7,7 @@ import Error from "@/components/Common/Error";
 import RecipeSubmissionForm from "@/components/Recipes/RecipeSubmissionForm";
 import Recipe from "@/components/Recipes/Recipe";
 import { BASE_URL } from "@/utils/constants";
+import { useAuth } from "@/providers/AuthProvider";
 
 const ExploreRecipesPage = () => {
   const [recipes, setRecipes] = useState(null);
@@ -14,6 +15,7 @@ const ExploreRecipesPage = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
+  const { user } = useAuth();
 
   const observerRef = useRef(null);
   const pageRef = useRef(1);
@@ -130,9 +132,11 @@ const ExploreRecipesPage = () => {
                 Discover delicious recipes from our collection
               </p>
             </div>
-            <div>
-              <RecipeSubmissionForm />
-            </div>
+            {user && (
+              <div>
+                <RecipeSubmissionForm />
+              </div>
+            )}
           </div>
 
           {recipes && recipes.length > 0 ? (
