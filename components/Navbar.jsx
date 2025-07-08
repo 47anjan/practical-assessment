@@ -77,6 +77,14 @@ const Navbar = () => {
                     <span>Cart</span>
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href="/explore-recipes"
+                    className="block md:px-4 transition hover:text-yellow-700"
+                  >
+                    <span>Explore</span>
+                  </Link>
+                </li>
               </ul>
             </div>
 

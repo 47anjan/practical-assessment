@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Plus, X, Upload } from "lucide-react";
 import { BASE_URL } from "@/utils/constants";
+import Modal from "../Modal";
 
 // Recipe categories from the provided data
 const categories = [
@@ -228,15 +229,13 @@ const RecipeSubmissionForm = () => {
 
   if (!isFormOpen) {
     return (
-      <div className="flex items-center h-screen justify-center">
-        <button
-          onClick={() => setIsFormOpen(true)}
-          className="bg-yellow-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-yellow-700 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition-all duration-200 flex items-center gap-2"
-        >
-          <Plus size={20} />
-          Add Recipe
-        </button>
-      </div>
+      <button
+        onClick={() => setIsFormOpen(true)}
+        className="bg-yellow-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-yellow-700 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition-all duration-200 flex items-center gap-2"
+      >
+        <Plus size={20} />
+        <span className="hidden md:block">Add Recipe</span>
+      </button>
     );
   }
 
@@ -477,8 +476,8 @@ const RecipeSubmissionForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-yellow-50 pt-12">
-      <div className="container mx-auto px-6 py-12">
+    <Modal isOpen={isFormOpen} setIsOpen={setIsFormOpen}>
+      <div className="container">
         <div className="flex items-center justify-center min-h-screen">
           <div className="w-full max-w-2xl">
             {/* Header */}
@@ -501,7 +500,7 @@ const RecipeSubmissionForm = () => {
             </div>
 
             {/* Form */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="bg-white rounded-2xl ">
               <div>
                 {renderStep()}
 
@@ -512,13 +511,6 @@ const RecipeSubmissionForm = () => {
                   </div>
                 )}
 
-                {status.success && (
-                  <div className="p-3 mt-3 bg-green-50 flex items-center justify-center border border-green-200 rounded-md">
-                    <p className="text-green-600 text-sm">
-                      Recipe added successful!
-                    </p>
-                  </div>
-                )}
                 <div className="flex justify-between mt-8">
                   <div>
                     {currentStep > 1 && (
@@ -570,7 +562,7 @@ const RecipeSubmissionForm = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 

@@ -1,11 +1,12 @@
+import { BASE_URL } from "@/utils/constants";
 import axios from "axios";
 
-const BASE_URL = "https://www.themealdb.com/api/json/v1/1";
+const BASE_URL_API = "https://www.themealdb.com/api/json/v1/1";
 
 const HttpKit = {
   getTopRecipes: async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/filter.php?a=American`);
+      const response = await axios.get(`${BASE_URL_API}/filter.php?a=American`);
       return response.data.meals ? response.data.meals.slice(0, 12) : [];
     } catch (error) {
       console.error("Error fetching top recipes:", error);
@@ -15,7 +16,7 @@ const HttpKit = {
 
   searchRecipesByName: async (query) => {
     try {
-      const response = await axios.get(`${BASE_URL}/search.php`, {
+      const response = await axios.get(`${BASE_URL_API}/search.php`, {
         params: { s: query },
       });
       return response.data.meals || [];
@@ -27,7 +28,7 @@ const HttpKit = {
 
   searchRecipesByIngredient: async (ingredient) => {
     try {
-      const response = await axios.get(`${BASE_URL}/filter.php`, {
+      const response = await axios.get(`${BASE_URL_API}/filter.php`, {
         params: { i: ingredient },
       });
       return response.data.meals || [];
@@ -40,7 +41,7 @@ const HttpKit = {
   getRecipeDetails: async (id) => {
     try {
       const response = axios
-        .get(`${BASE_URL}/lookup.php`, {
+        .get(`${BASE_URL_API}/lookup.php`, {
           params: { i: id },
         })
         .then((res) => res);
@@ -56,7 +57,7 @@ const HttpKit = {
 
   getCategories: async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/categories.php`);
+      const response = await axios.get(`${BASE_URL_API}/categories.php`);
       return response.data.categories || [];
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -66,7 +67,7 @@ const HttpKit = {
 
   filterByCategory: async (category) => {
     try {
-      const response = await axios.get(`${BASE_URL}/filter.php`, {
+      const response = await axios.get(`${BASE_URL_API}/filter.php`, {
         params: { c: category },
       });
       return response.data.meals || [];
@@ -78,12 +79,24 @@ const HttpKit = {
 
   filterByArea: async (area) => {
     try {
-      const response = await axios.get(`${BASE_URL}/filter.php`, {
+      const response = await axios.get(`${BASE_URL_API}/filter.php`, {
         params: { a: area },
       });
       return response.data.meals || [];
     } catch (error) {
       console.error("Error filtering recipes by area:", error);
+      throw error;
+    }
+  },
+
+  getRecipes: async (page = 1, limit = 5) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/api/recipes`, {
+        params: { page, limit },
+      });
+      return response.data || [];
+    } catch (error) {
+      console.error("Error fetching categories:", error);
       throw error;
     }
   },
