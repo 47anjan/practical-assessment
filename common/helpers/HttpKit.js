@@ -88,18 +88,6 @@ const HttpKit = {
       throw error;
     }
   },
-
-  getRecipes: async (page = 1, limit = 5) => {
-    try {
-      const response = await axios.get(`${BASE_URL}/api/recipes`, {
-        params: { page, limit },
-      });
-      return response.data || [];
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-      throw error;
-    }
-  },
 };
 
 export default HttpKit;
